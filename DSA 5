@@ -8,13 +8,13 @@ struct Node {
 
     Node(int val) {
         data = val;
-        left = right = nullptr;
+        left = right = NULL;
         isThreaded = false;
     }
 };
 
 Node* insert(Node* root, int key) {
-    if (root == nullptr)
+    if (root == NULL)
         return new Node(key);
     if (key < root->data)
         root->left = insert(root->left, key);
@@ -24,11 +24,11 @@ Node* insert(Node* root, int key) {
 }
 
 void createThreaded(Node* root, Node*& prev) {
-    if (root == nullptr) return;
+    if (root == NULL) return;
 
     createThreaded(root->left, prev);
 
-    if (prev && prev->right == nullptr) {
+    if (prev && prev->right == NULL) {
         prev->right = root;
         prev->isThreaded = true;
     }
@@ -56,7 +56,7 @@ void inorder(Node* root) {
 }
 
 int main() {
-    Node* root = nullptr;
+    Node* root = NULL;
     root = insert(root, 10);
     insert(root, 7);
     insert(root, 2);
@@ -65,7 +65,7 @@ int main() {
     insert(root, 19);
     insert(root, 22);
 
-    Node* prev = nullptr;
+    Node* prev = NULL;
     createThreaded(root, prev);
 
     cout << "Inorder Traversal: ";
