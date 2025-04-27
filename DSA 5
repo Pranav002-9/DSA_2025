@@ -1,0 +1,75 @@
+#include <iostream>
+using namespace std;
+
+struct Node {
+    int data;
+    Node *left, *right;
+    bool isThreaded;
+
+    Node(int val) {
+        data = val;
+        left = right = nullptr;
+        isThreaded = false;
+    }
+};
+
+Node* insert(Node* root, int key) {
+    if (root == nullptr)
+        return new Node(key);
+    if (key < root->data)
+        root->left = insert(root->left, key);
+    else
+        root->right = insert(root->right, key);
+    return root;
+}
+
+void createThreaded(Node* root, Node*& prev) {
+    if (root == nullptr) return;
+
+    createThreaded(root->left, prev);
+
+    if (prev && prev->right == nullptr) {
+        prev->right = root;
+        prev->isThreaded = true;
+    }
+
+    prev = root;
+    createThreaded(root->right, prev);
+}
+
+Node* leftmost(Node* root) {
+    while (root && root->left)
+        root = root->left;
+    return root;
+}
+
+void inorder(Node* root) {
+    Node* current = leftmost(root);
+    while (current) {
+        cout << " - " << current->data;
+
+        if (current->isThreaded)
+            current = current->right;
+        else
+            current = leftmost(current->right);
+    }
+}
+
+int main() {
+    Node* root = nullptr;
+    root = insert(root, 10);
+    insert(root, 7);
+    insert(root, 2);
+    insert(root, 8);
+    insert(root, 16);
+    insert(root, 19);
+    insert(root, 22);
+
+    Node* prev = nullptr;
+    createThreaded(root, prev);
+
+    cout << "Inorder Traversal: ";
+    inorder(root);
+
+    return 0;
+}
