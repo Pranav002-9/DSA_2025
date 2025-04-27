@@ -1,49 +1,52 @@
 #include <iostream>
 #include <vector>
-using namespace std ;
+#include <string>  
+using namespace std;
 
 class node {
-	public :
-		string name ;
-		vector <node*> children ;
-		
-		node(string name){
-			this->name =name ;
-		}
-		void addchild (node*child){
-			children.push_back(child);
-		}
-		void printTree(int level = 0){      
-			for (int i=0 ;i< level ;i++)cout<<"  ";
-			cout<<name<<endl;
-			for (node* child : children) {
-                child->printTree(level + 1);
+    public:
+        string name;
+        vector<node*> children;
+
+        node(string name) {
+            this->name = name;
+        }
+
+        void addchild(node* child) {
+            children.push_back(child);
+        }
+
+        void printTree(int level = 0) {
+            for (int i = 0; i < level; i++) cout << "  ";
+            cout << name << endl;
+            for (int i = 0; i < children.size(); i++) {
+                children[i]->printTree(level + 1);
             }
-		}
+        }
 };
 
-int main (){
-	node* book =new node ("Book");
-	
-	node* chapter1 =new node("chapter 1");
-	node* chapter2 =new node("chapter 2");
-	
-	book->addchild(chapter1);
-	book->addchild(chapter2);
-	
-	node* section1 =new node("section 1");
-	node* section2 =new node("section 1");
-	
-	chapter1->addchild(section1);
-	chapter2->addchild(section2);
-	
-	node* subsection1 =new node("section 1.1");
-	node* subsection2 =new node("section 2.1");
-	
-	section1-> addchild(subsection1);
-	section2-> addchild(subsection2);
-	
-	book->printTree();
-	
-	return 0;
+int main() {
+    node* book = new node("Book");
+
+    node* chapter1 = new node("Chapter 1");
+    node* chapter2 = new node("Chapter 2");
+
+    book->addchild(chapter1);
+    book->addchild(chapter2);
+
+    node* section1 = new node("Section 1");
+    node* section2 = new node("Section 2"); 
+
+    chapter1->addchild(section1);
+    chapter2->addchild(section2);
+
+    node* subsection1 = new node("Section 1.1");
+    node* subsection2 = new node("Section 2.1");
+
+    section1->addchild(subsection1);
+    section2->addchild(subsection2);
+
+    book->printTree();
+
+    return 0;
 }
