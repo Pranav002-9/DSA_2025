@@ -1,0 +1,45 @@
+#include <iostream>
+using namespace std;
+
+int adj_mat[50][50] = {0}; 
+
+int main() {
+    int n;  
+    cout << "Enter no. of cities: ";
+    cin >> n;
+
+    string cities[n];  
+
+
+    for (int i = 0; i < n; i++) {
+        cout << "Enter city #" << i << " (Airport Code): ";
+        cin >> cities[i];
+    }
+
+    cout << "\nYour cities are:\n";
+    for (int i = 0; i < n; i++)
+        cout << "City #" << i << ": " << cities[i] << endl;
+
+
+    for (int i = 0; i < n; i++) {
+        for (int j = i + 1; j < n; j++) {
+            cout << "Enter distance between " << cities[i] << " and " << cities[j] << ": ";
+            cin >> adj_mat[i][j];
+            adj_mat[j][i] = adj_mat[i][j];  
+        }
+    }
+
+    cout << "\nAdjacency Matrix:\n\t";
+    for (int i = 0; i < n; i++)
+        cout << cities[i] << "\t";
+    cout << endl;
+
+    for (int i = 0; i < n; i++) {
+        cout << cities[i] << "\t";
+        for (int j = 0; j < n; j++)
+            cout << adj_mat[i][j] << "\t";
+        cout << endl;
+    }
+
+    return 0;
+}
