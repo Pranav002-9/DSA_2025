@@ -1,0 +1,51 @@
+#include <iostream>
+using namespace std;
+
+const int INF = 999, MAX = 20;
+
+int main() {
+    int graph[MAX][MAX], V, E, u, v, cost;
+    cout << "Enter number of offices: ";
+    cin >> V;
+
+    // Initialize graph with INF
+    for (int i = 0; i < V; i++)
+        for (int j = 0; j < V; j++)
+            graph[i][j] = INF;
+
+    cout << "Enter number of connections: ";
+    cin >> E;
+    cout << "Enter edges (office1 office2 cost):\n";
+    for (int i = 0; i < E; i++) {
+        cin >> u >> v >> cost;
+        graph[u - 1][v - 1] = graph[v - 1][u - 1] = cost;
+    }
+
+    int selected[MAX] = {0}, total = 0;
+    selected[0] = 1; // start from first office
+
+    cout << "\nConnections in MST:\n";
+    for (int edges = 0; edges < V - 1; edges++) {
+        int min = INF, x = -1, y = -1;
+        for (int i = 0; i < V; i++) {
+            if (selected[i]) {
+                for (int j = 0; j < V; j++) {
+                    if (!selected[j] && graph[i][j] < min) {
+                        min = graph[i][j];
+                        x = i; y = j;
+                    }
+                }
+            }
+        }
+        if (x != -1 && y != -1) {
+            cout << "Office " << x + 1 << " - Office " << y + 1 << " : Cost = " << graph[x][y] << endl;
+            total += graph[x][y];
+            selected[y] = 1;
+        }
+    }
+
+    cout << "Total Minimum Cost: " << total << endl;
+    return 0;
+}
+
+//tip Enter offices: 2 , connections: 1
