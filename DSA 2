@@ -1,0 +1,63 @@
+def add(set_list, element):
+    if element not in set_list:
+        set_list.append(element)
+
+def remove(set_list, element):
+    if element in set_list:
+        set_list.remove(element)
+
+def contains(set_list, element):
+    return element in set_list
+
+def size(set_list):
+    return len(set_list)
+
+def intersection(set1, set2):
+    result = []
+    for element in set1:
+        if element in set2:
+            result.append(element)
+    return result
+
+def union(set1, set2):
+    result = set1.copy()
+    for element in set2:
+        if element not in result:
+            result.append(element)
+    return result
+
+def difference(set1, set2):
+    result = []
+    for element in set1:
+        if element not in set2:
+            result.append(element)
+    return result
+
+def is_subset(set1, set2):
+    for element in set1:
+        if element not in set2:
+            return False
+    return True
+
+
+set1 = []
+n = int(input("Enter the number of elements for set 1: "))
+print("Enter elements for set 1: ")
+for _ in range(n):
+    element = input()
+    add(set1, element)
+
+set2 = []
+m = int(input("Enter the number of elements for set 2: "))
+print("Enter elements for set 2: ")
+for _ in range(m):
+    element = input()
+    add(set2, element)
+
+print("Set 1:", set1)
+print("Set 2:", set2)
+
+print("Intersection:", intersection(set1, set2))
+print("Union:", union(set1, set2))
+print("Difference (Set 1 - Set 2):", difference(set1, set2))
+print("Set 1 is a subset of Set 2:", is_subset(set1, set2))
