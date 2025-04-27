@@ -1,0 +1,52 @@
+t = int(input("Enter the size of the hash table: "))
+
+hash1 = [None for _ in range(t)]
+hash2 = [None for _ in range(t)]
+
+def quadratic_hash(hash1, hash2, data, number):
+    data_key = abs(hash(data))
+    for i in range(t):
+        hf = (data_key+ i * i) % t
+        if hash1[hf] is None:
+            hash1[hf] = data
+            hash2[hf] = number
+            return
+    print("No space in hash table for quadratic probing.")
+
+def double_hash(hash1, hash2, data, number):
+    data_key = abs(hash(data))
+    hf1 = data_key % t
+    hf2 = 7 - (data_key % 7)
+
+    for i in range(t):
+        index = (hf1 + i * hf2) % t
+        if hash1[index] is None:
+            hash1[index] = data
+            hash2[index] = number
+            return
+    print("No space in hash table for double hashing.")
+
+def display(hash1, hash2):
+    print("\nTable |Number  | name")
+    print("----------------------------")
+    for i in range(t):
+        print(i+1," ",hash1[i]," ",hash2[i])
+
+print("By using quadratic hashing:")
+quadratic_hash(hash1, hash2, 365,"gaurav")
+quadratic_hash(hash1, hash2, 403,"baka")
+quadratic_hash(hash1, hash2, 316,"phantom ")
+
+display(hash1, hash2)
+
+# Resetting tables for double hashing
+hash11 = [None for _ in range(t)]
+hash12 = [None for _ in range(t)]
+
+print("\nBy using double hashing:")
+
+double_hash(hash11, hash12, 365,"gaurav")
+double_hash(hash11, hash12, 483,"baka")
+double_hash(hash11, hash12, 319,"phantom ")
+
+display(hash11, hash12)
